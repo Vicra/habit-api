@@ -58,7 +58,7 @@ export class HabitsService {
   create(createHabitDto: CreateHabitDto) {
     return habits.push({
       id: habits.length + 1,
-      ...createHabitDto, // destructuring the properties from createHabitDto
+      ...createHabitDto, // destructuring the properties from createHabitDto test
       startedAt: new Date(),
       lastUpdatedAt: new Date(),
     });
