@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHabitDto } from './dto/create-habit.dto';
 import { UpdateHabitDto } from './dto/update-habit.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 const habits: any = [
   {
@@ -55,6 +56,7 @@ const habits: any = [
 
 @Injectable()
 export class HabitsService {
+  constructor(private prisma: PrismaService) {}
   create(createHabitDto: CreateHabitDto) {
     return habits.push({
       id: habits.length + 1,
@@ -65,7 +67,7 @@ export class HabitsService {
   }
 
   findAll() {
-    return habits;
+    return this.prisma.habit.findMany();
   }
 
   findOne(id: number) {
