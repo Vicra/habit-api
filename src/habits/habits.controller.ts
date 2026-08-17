@@ -17,6 +17,7 @@ export class HabitsController {
 
   @Post()
   create(@Body() createHabitDto: CreateHabitDto) {
+    console.log(createHabitDto);
     return this.habitsService.create(createHabitDto);
   }
 

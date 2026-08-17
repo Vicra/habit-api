@@ -15,13 +15,16 @@ export class HabitsService {
   }
 
   findAll() {
-    return this.prisma.habit.findMany();
+    return this.prisma.habit.findMany({
+      skip: 0,
+      take: 10,
+    });
   }
 
-  findOne(id: string) {
+  findOne(_id: string) {
     return this.prisma.habit.findUnique({
       where: {
-        id,
+        id: _id,
       },
     });
   }
