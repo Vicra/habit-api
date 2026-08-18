@@ -9,7 +9,8 @@ export class HabitsService {
   async create(createHabitDto: CreateHabitDto) {
     await this.prisma.habit.create({
       data: {
-        name: createHabitDto.name,
+        ...createHabitDto,
+        startDate: new Date(createHabitDto.startDate),
       },
     });
   }
