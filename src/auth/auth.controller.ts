@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { signToken } from './jwt.util';
 
 @Controller('auth')
 export class AuthController {
@@ -42,9 +43,16 @@ export class AuthController {
       throw new BadRequestException('Invalid password');
     }
 
+    // generate jwt
+    const token = signToken(
+      { email: user.email, name: user.name, id: user.id },
+      'supersecret',
+      { expiresIn: '1h' },
+    );
+
     return {
       message: 'Login successful',
+      token,
     };
-
   }
 }
