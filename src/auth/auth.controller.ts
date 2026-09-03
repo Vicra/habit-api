@@ -45,7 +45,12 @@ export class AuthController {
 
     // generate jwt
     const token = signToken(
-      { email: user.email, name: user.name, id: user.id },
+      {
+        email: user.email,
+        name: user.name,
+        id: user.id,
+        permissions: ['view:habits'],
+      },
       'supersecret',
       { expiresIn: '1h' },
     );
