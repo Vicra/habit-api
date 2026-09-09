@@ -21,24 +21,30 @@ model Habit {
   startDate   DateTime
   userHabits  UserHabits[]
   userId      String
+  user        User         @relation(fields: [userId], references: [id])
 }
 
 model User {
-  id         String       @id @default(uuid()) @map("_id")
-  name       String
-  email      String       @unique
-  password   String
-  salt       String // password encryption
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime?     @updatedAt
-  userHabits UserHabits[]
+  id            String       @id @default(uuid()) @map("_id")
+  name          String
+  email         String       @unique
+  password      String
+  salt          String // password encryption
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime?    @updatedAt
+  createdHabits Habit[]
+  userHabits    UserHabits[] @relation("userHabits")
+  createdBy     UserHabits[] @relation("createdBy")
 }
 
 model UserHabits {
   id     String @id @default(uuid()) @map("_id")
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], name: "userHabits")
   userId String
 
   habit   Habit  @relation(fields: [habitId], references: [id])
   habitId String
+
+  createdBy   User   @relation(fields: [createdById], references: [id], name: "createdBy")
+  createdById String
 }

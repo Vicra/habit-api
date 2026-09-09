@@ -15,10 +15,13 @@ export class HabitsService {
     });
   }
 
-  findAll() {
+  findAll(userId: string) {
     return this.prisma.habit.findMany({
       skip: 0,
       take: 10,
+      where: {
+        userId: userId,
+      },
     });
   }
 

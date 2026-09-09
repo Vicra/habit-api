@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { HabitsService } from './habits.service';
 import { CreateHabitDto } from './dto/create-habit.dto';
@@ -22,8 +23,8 @@ export class HabitsController {
   }
 
   @Get()
-  findAll() {
-    return this.habitsService.findAll();
+  findAll(@Req() req: { user: { id: string } }) {
+    return this.habitsService.findAll(req.user.id);
   }
 
   @Get(':id')
